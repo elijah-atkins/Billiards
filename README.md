@@ -12,10 +12,12 @@ https://billiards.elijahatkins.com/
 - The game is played in 3D, so you can move around the table and look at the balls from different angles.
 - You can also zoom in and out with the mouse wheel.
 
+- On Mobile, you can click the cueball to start charging the shot and click the cueball again to shoot.
+
 
 ## Todo
-- [x] Mobile controls (tap the cueball to charge and tap again to release to shoot)
 - [ ] 3d Environment
+- [ ] Game Loop Reset
 - [ ] Use Cue Stick to hit the ball
 - [ ] Add a menu
 - [ ] Add a scoreboard
