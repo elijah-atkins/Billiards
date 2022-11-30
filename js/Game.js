@@ -127,7 +127,7 @@ class Game{
         const ball_wall = new CANNON.ContactMaterial(
           Ball.MATERIAL,
           Table.WALL_MATERIAL,
-          {friction: 0.5, restitution: 0.6}
+          {friction: 0.5, restitution: .99 }
         );
 
         world.addContactMaterial(ball_floor);
