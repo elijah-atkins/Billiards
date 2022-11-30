@@ -14,7 +14,9 @@ https://billiards.elijahatkins.com/
 
 
 ## Todo
-
+- [x] Mobile controls (tap the cueball to charge and tap again to release to shoot)
+- [ ] 3d Environment
+- [ ] Use Cue Stick to hit the ball
 - [ ] Add a menu
 - [ ] Add a scoreboard
 - [ ] Add Soundfx

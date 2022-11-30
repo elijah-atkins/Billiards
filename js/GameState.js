@@ -1,4 +1,5 @@
 import { GameUI } from './GameUI.js';
+import { Vector2, Raycaster } from '../../libs/three137/three.module.js';
 
 class GameState{
     constructor(game)
@@ -6,10 +7,12 @@ class GameState{
       this.game = game;
       this.ui = new GameUI();
       this.initGame();
+      this.charging = false;
       const btn = document.getElementById('playBtn');
       btn.onclick = this.startGame.bind(this);
       document.addEventListener( 'keydown', this.keydown.bind(this));
-      document.addEventListener( 'keyup', this.keyup.bind(this));
+      document.addEventListener( 'keyup', this.keyup.bind(this)); 
+      document.addEventListener( 'click', this.onClick.bind(this));
     }
   
     showPlayBtn(){
@@ -25,6 +28,8 @@ class GameState{
 
     keydown( evt ){
       if (this.state !== 'turn') return;
+      //if mouse is down, show strength bar
+  
 
       if (evt.keyCode == 32){
           this.ui.strengthBar.visible = true;
@@ -38,6 +43,31 @@ class GameState{
           this.ui.strengthBar.visible = false;
           this.hit(this.ui.strengthBar.strength);
       }
+    }
+
+    onClick( evt ){
+      //if mouse is down, show strength bar
+      if (this.state !== 'turn') return;
+      const mouse = new Vector2();
+      mouse.x = ( evt.clientX / window.innerWidth ) * 2 - 1;
+      mouse.y = - ( evt.clientY / window.innerHeight ) * 2 + 1;
+      const raycaster = new Raycaster();
+      raycaster.setFromCamera( mouse, this.game.camera );
+      const intersects = raycaster.intersectObjects( this.game.scene.children, true );
+
+      if (intersects.length > 0){
+        if(!this.charging){
+          if(intersects[0].object.name == 'ball0'){
+            this.ui.strengthBar.visible = true;
+            this.charging = true;
+          }
+        }else{
+          this.ui.strengthBar.visible = false;
+          this.charging = false;
+          this.hit(this.ui.strengthBar.strength);
+        }
+      }
+
     }
 
     initGame(){
@@ -131,6 +161,7 @@ class GameState{
     const winner = this.turn == 'player1' ? 'Player 1' : 'Player 2';
     clearTimeout(this.ticker);
     this.ui.showMessage(`${winner} won!`, 'Thank you for playing');
+
   }
   
   hit(strength) {

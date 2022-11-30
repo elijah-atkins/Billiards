@@ -89,6 +89,7 @@ class Ball{
     
         mesh.castShadow = true;
         mesh.receiveShadow = true;
+        mesh.name = `ball${this.id}`;
         scene.add(mesh); 
 
         return mesh;
