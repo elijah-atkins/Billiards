@@ -22,6 +22,8 @@ class GameState{
     startGame(){
       this.ui.showGameHud(true);
       this.game.reset();
+      //hide message
+      this.ui.hide('message');
       this.initGame();
       this.startTurn();
     }
@@ -161,6 +163,7 @@ class GameState{
     const winner = this.turn == 'player1' ? 'Player 1' : 'Player 2';
     clearTimeout(this.ticker);
     this.ui.showMessage(`${winner} won!`, 'Thank you for playing');
+
 
   }
   

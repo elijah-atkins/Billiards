@@ -26,14 +26,15 @@ class WhiteBall extends Ball{
 
         const geometry = new THREE.BufferGeometry().setFromPoints( points );
 
-        const material = new THREE.LineDashedMaterial( { color: 0xffffff, dashSize: 0.05, gapSize: 0.03 } )
+        const material = new THREE.LineDashedMaterial( { color: 0xffffff, dashSize: 0.05, gapSize: 0.05, linewidth: 1 } )
+
         const line = new THREE.Line(geometry, material);
         
         line.scale.z = 3;
         line.visible = false;
 
-        line.computeLineDistances();
-      
+        line.computeLineDistances(); 
+
         return line;
     }
 
@@ -65,6 +66,13 @@ class WhiteBall extends Ball{
         
         this.guideLine.position.copy(this.mesh.position);
         this.guideLine.rotation.y = angle;
+        const guideLength = this.guideLine.scale.z
+
+        //scale dash gap to match scale
+        this.guideLine.material.gapSize = 0.05 / guideLength;
+        this.guideLine.material.dashSize = 0.05 / guideLength;
+
+
         
         this.guideLine.visible = true;
 

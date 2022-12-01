@@ -115,6 +115,7 @@ class GameUI{
     document.getElementById("message").children[0].textContent = title;
     document.getElementById("message").children[1].textContent = body;
     this.show('message');
+    this.show('playBtn');
   }
 
   update(){

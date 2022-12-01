@@ -31,6 +31,7 @@ body{
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 11;
 }
 
 #playBtn:hover{
@@ -54,6 +55,7 @@ body{
 }
 
 .player {
+  padding-top: 1rem;
   border-radius: 5px;
   border: 1px solid #000;
   display: block;
@@ -111,9 +113,9 @@ body{
 }
 
 .gamelog {
-  padding: 0 3px;
+  padding: 0 10px;
   margin: 0;
-  margin-left: 3px;
+  margin-left: 10px;
   color: #dadada;
   background-color: rgba(0, 0, 0, 0.25);
   border-radius: 3px;

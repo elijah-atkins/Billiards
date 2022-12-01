@@ -17,7 +17,6 @@ https://billiards.elijahatkins.com/
 
 ## Todo
 - [ ] 3d Environment
-- [ ] Game Loop Reset
 - [ ] Use Cue Stick to hit the ball
 - [ ] Add a menu
 - [ ] Add a scoreboard

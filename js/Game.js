@@ -89,6 +89,7 @@ class Game{
 
     reset(){
         this.balls.forEach( ball => ball.reset() );
+        this.camera.position.set( -3, 1.5, 0 );
     }
 
     strikeCueball(strength){
