@@ -67,12 +67,13 @@ class GameUI{
     for (let i=1;i<8;i++) {
       const el = document.createElement('li');
       el.textContent = i;
+
       if (ballArr.indexOf(i) > -1) {
 
       } else {
         this.addClass(el, 'pocketed');
       }
-
+      this.addClass(el, 'ballslot');
       elem.appendChild(el);
     }
 
@@ -88,7 +89,7 @@ class GameUI{
       } else {
         this.addClass(el, 'pocketed');
       }
-
+      this.addClass(el, 'ballslot');
       elem.appendChild(el);
     }
 

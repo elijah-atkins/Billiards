@@ -90,6 +90,14 @@ class Game{
     reset(){
         this.balls.forEach( ball => ball.reset() );
         this.camera.position.set( -3, 1.5, 0 );
+        this.gameState.player1 = '?';
+        this.gameState.player2 = '?';
+        //replace content in elements with class 'ballslot' with '?'
+        document.querySelectorAll('.ballslot').forEach( el => el.textContent = '?' );
+        //remove all pocketed classes
+        document.querySelectorAll('.pocketed').forEach( el => el.classList.remove('pocketed') );
+        
+
     }
 
     strikeCueball(strength){
