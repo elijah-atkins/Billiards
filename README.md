@@ -2,8 +2,7 @@
 8 Ball game made with THREE.js with cannon-es physics engine. 
 
 ## Play Now
-https://billiards.vercel.app/
-https://billiards.elijahatkins.com/
+- https://billiards.vercel.app/
 
 ## How to play
 - The game is played with mouse and keyboard.
