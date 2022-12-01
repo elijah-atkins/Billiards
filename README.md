@@ -11,11 +11,13 @@ https://billiards.elijahatkins.com/
 - Rules of the game are the same as 8-ball pool.
 - The game is played in 3D, so you can move around the table and look at the balls from different angles.
 - You can also zoom in and out with the mouse wheel.
+- Each player has 30 seconds to make a shot, if the time runs out the player loses their turn.
 
 - On Mobile, you can click the cueball to start charging the shot and click the cueball again to shoot.
 
 
 ## Todo
+- [ ] Put ball back on table if it goes out of bounds
 - [ ] 3d Environment
 - [ ] Use Cue Stick to hit the ball
 - [ ] Add a menu
