@@ -43,7 +43,7 @@ body{
   position: absolute;
   padding-top: 15%;
   width: 100%;
-  background-color: green;
+  background-color: rgba(13, 198, 18, 0.5);
   z-index: 10;
   height: 100%;
   text-align: center;
