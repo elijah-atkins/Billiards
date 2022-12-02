@@ -93,7 +93,7 @@ class Game{
         this.gameState.player1 = '?';
         this.gameState.player2 = '?';
         //replace content in elements with class 'ballslot' with '?'
-        document.querySelectorAll('.ballslot').forEach( el => el.textContent = '?' );
+        document.querySelectorAll('.ballUI').forEach( el => el.textContent = '?' );
         //remove all pocketed classes
         document.querySelectorAll('.pocketed').forEach( el => el.classList.remove('pocketed') );
         
@@ -158,7 +158,7 @@ class Game{
         const pmremGenerator = new THREE.PMREMGenerator( this.renderer );
         pmremGenerator.compileEquirectangularShader();
         
-        loader.load( '../../assets/hdr/living_room.hdr',  
+        loader.load( '../../assets/hdr/pool_table.hdr',  
             texture => {
                 const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
                 pmremGenerator.dispose();

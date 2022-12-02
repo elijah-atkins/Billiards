@@ -73,7 +73,7 @@ class GameUI{
       } else {
         this.addClass(el, 'pocketed');
       }
-      this.addClass(el, 'ballslot');
+      this.addClass(el, 'ballUI');
       elem.appendChild(el);
     }
 
@@ -89,7 +89,7 @@ class GameUI{
       } else {
         this.addClass(el, 'pocketed');
       }
-      this.addClass(el, 'ballslot');
+      this.addClass(el, 'ballUI');
       elem.appendChild(el);
     }
 
