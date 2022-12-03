@@ -16,12 +16,18 @@
 
 
 ## Todo
-- [ ] Put ball back on table if it goes out of bounds
-- [ ] 3d Environment
-- [ ] Use Cue Stick to hit the ball
-- [ ] Add a menu
-- [ ] Add a scoreboard
 - [ ] Add Soundfx
+- [ ] Handle ball out of bounds
+- [ ] 3d Environment
+- [ ] Cue Stick animation to hit the ball
+
+
+## Stretch Goals
+- [ ] Add online multiplayer
+- [ ] Add AI
+- [ ] Add 9-ball pool
+- [ ] VR support
+
 
 
 
