@@ -76,9 +76,11 @@ class Ball{
             metalness: 0.0,
             roughness: 0.1,
             envMap: scene.environment,
-            //set color to 0xffeecd
-            color: 0xffeecd
         });
+
+        if (this.id == 0) {
+          material.color.setHex( 0xffeecd);
+        }
   
         if (this.id>0){
             const textureLoader = new THREE.TextureLoader().setPath('../../assets/pool-table/').load(`${this.id}ball.png`, tex => {

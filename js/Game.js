@@ -190,6 +190,7 @@ class Game {
                     if (child.name == 'Felt') {
                         this.edges = child;
                         child.receiveShadow = true;
+                        child.castShadow = true;
                     }
                     if (child.isMesh) {
                         child.material.envMap = this.scene.environment;
