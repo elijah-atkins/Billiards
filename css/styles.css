@@ -93,6 +93,7 @@ body{
 
 .player1 {
   left: 5px;
+  background-color: #0055cc;
 }
 
 .player.active {
@@ -102,6 +103,7 @@ body{
 
 .player2 {
   right: 5px;
+  background-color: #ffa500;
 }
 
 .player h5 {

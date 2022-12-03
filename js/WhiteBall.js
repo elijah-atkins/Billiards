@@ -1,4 +1,5 @@
 import { Ball } from './Ball.js';
+
 import * as THREE from '../../libs/three137/three.module.js';
 import * as CANNON from '../../libs/cannon-es.js';
 
@@ -17,6 +18,7 @@ class WhiteBall extends Ball{
         this.raycaster = new THREE.Raycaster();
 
         this.game = game;
+        
     }
 
     createGuideLine() {
@@ -72,9 +74,17 @@ class WhiteBall extends Ball{
         this.guideLine.material.gapSize = 0.05 / guideLength;
         this.guideLine.material.dashSize = 0.05 / guideLength;
 
+        //if gamestate.state === turn, show guide line
+        if (this.game.gameState.state === 'turn') {
+            this.guideLine.visible = true;
+            //if gamestate.turn === player1 make the guide line red else make it orange
+            if (this.game.gameState.turn === 'player1') {
+                this.guideLine.material.color.set(0x0055cc); //player1 color
+            } else {
+                this.guideLine.material.color.set(0xffa500); //player2 color
+            }
+        }
 
-        
-        this.guideLine.visible = true;
 
         this.guideLine.getWorldDirection(this.forward);
         this.forward.negate();

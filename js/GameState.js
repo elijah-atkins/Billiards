@@ -95,7 +95,8 @@ class GameState{
       this.timer = 30;
       this.tickTimer();
       this.state = 'turn';
-      this.ui.updateTurn(this.turn);
+   
+      this.ui.updateTurn(this.turn == 'player1' ? 'player2' : 'player1'); //TODO fix this hack, changed the function of the UI to hide instead of highlight to better indicate player turn
       this.ui.updateBalls(this.numberedBallsOnTable, this.sides);
       const str = this.turn == 'player1' ? 'Player 1' : 'Player 2';
       this.ui.log(`${str} to play`);
