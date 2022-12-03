@@ -75,7 +75,9 @@ class Ball{
         const material = new THREE.MeshStandardMaterial({
             metalness: 0.0,
             roughness: 0.1,
-            envMap: scene.environment
+            envMap: scene.environment,
+            //set color to 0xffeecd
+            color: 0xffeecd
         });
   
         if (this.id>0){

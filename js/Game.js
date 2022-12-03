@@ -189,13 +189,10 @@ class Game {
 
                     if (child.name == 'Felt') {
                         this.edges = child;
+                        child.receiveShadow = true;
                     }
                     if (child.isMesh) {
                         child.material.envMap = this.scene.environment;
-                    }
-                    if (child.parent !== null && child.parent.name !== null && child.parent.name == 'Felt') {
-
-                        child.receiveShadow = true;
                     }
                 })
                 this.scene.add(gltf.scene);
