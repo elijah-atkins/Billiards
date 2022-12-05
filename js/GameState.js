@@ -8,8 +8,9 @@ class GameState{
       this.game = game;
       this.ui = new GameUI();
       this.ai = new GameAI(this.game);
-      this.balls = [];
+      this.playerBalls = [];
       this.aiOn = false;
+      this.turnTimer = 0;
       this.initGame();
       this.charging = false;
       const btn = document.getElementById('playBtn');
@@ -99,27 +100,27 @@ class GameState{
       }
         
       //parse numberdBallsOnTable to get a list of balls
-      const balls = [];
+      const ballSet = [];
       //figure out which side the player is on
       if (this.sides[this.turn] == 'solid') {
         for (let i = 1; i < 8; i++) {
           if (this.numberedBallsOnTable.includes(i)) {
-            balls.push(i);
+            ballSet.push(i);
           }
         }
       } else {
         for (let i = 9; i < 16; i++) {
           if (this.numberedBallsOnTable.includes(i)) {
-            balls.push(i);
+            ballSet.push(i);
           }
         }
       }
       //if there are no balls left, the player wins
-      if (balls.length == 0) {
+      if (ballSet.length == 0) {
         //add 8 ball to the list
-        balls.push(8);
+        ballSet.push(8);
       }
-      return balls;
+      return ballSet;
     }
 
     initGame(){
@@ -168,7 +169,7 @@ class GameState{
   
     coloredBallEnteredHole(id) {
       if (id === undefined) return;
-      this.balls = this.playerTargetBallSet(this.turn);
+      this.playerBalls = this.playerTargetBallSet(this.turn);
 
       this.numberedBallsOnTable = this.numberedBallsOnTable.filter( num => {
         
@@ -180,7 +181,7 @@ class GameState{
   
       if (id == 8) {
         
-        if (this.balls.length > 1) {
+        if (this.playerBalls.length > 1) {
             this.ui.log(`Game over! 8 ball pocketed too early by ${this.turn}`);
             this.turn = this.turn == 'player1' ? 'player2': 'player1';
         }
@@ -238,26 +239,33 @@ class GameState{
     this.state = 'turnwaiting';
   }
 
-  checkSleeping(){
+  checkSleeping(dt){
     if (!this.game.cueball.isSleeping) return;
 
-    for (let i=1; i<this.game.balls.length; i++) {
+    for (let i=1; i<this.game.balls.length; i++) 
+    {
       if (!this.game.balls[i].isSleeping && this.numberedBallsOnTable.indexOf(Number(game.balls[i].name.split('ball')[0])) > -1) {
         return;
       }
     }
+    //add dt to turn timer
+    this.turnTimer += dt;
+    if (this.turnTimer > 2) {
+      if (!this.pocketingOccurred) this.switchSides();
+      console.log('turn over');
+      this.pocketingOccurred = false;
+  
+      setTimeout( this.startTurn.bind(this), 1000);
+  
+      this.state = 'paused';
+      this.turnTimer = 0;
+    }
 
-    if (!this.pocketingOccurred) this.switchSides();
 
-    this.pocketingOccurred = false;
-
-    setTimeout( this.startTurn.bind(this), 1000);
-
-    this.state = 'paused';
   }
 
   update(dt){
-    if (this.state == 'turnwaiting') this.checkSleeping();
+    if (this.state == 'turnwaiting') this.checkSleeping(dt);
     this.ui.update();
 
     if(this.aiOn){
