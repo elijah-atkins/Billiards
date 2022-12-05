@@ -252,11 +252,8 @@ class GameState{
     this.turnTimer += dt;
     if (this.turnTimer > 2) {
       if (!this.pocketingOccurred) this.switchSides();
-      console.log('turn over');
-      this.pocketingOccurred = false;
-  
-      setTimeout( this.startTurn.bind(this), 1000);
-  
+      this.pocketingOccurred = false; 
+      setTimeout( this.startTurn.bind(this), 1000); 
       this.state = 'paused';
       this.turnTimer = 0;
     }
