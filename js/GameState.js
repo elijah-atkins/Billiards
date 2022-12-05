@@ -70,6 +70,7 @@ class GameState{
 
     onClick( evt ){
       //if mouse is down, show strength bar
+      if (this.aiOn && this.turn == 'player2') return;
       if (this.state !== 'turn') return;
       const mouse = new Vector2();
       mouse.x = ( evt.clientX / window.innerWidth ) * 2 - 1;
