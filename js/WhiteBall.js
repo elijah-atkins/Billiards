@@ -97,6 +97,20 @@ class WhiteBall extends Ball{
             this.guideLine.scale.z = intersects[0].distance;
             this.dot.position.copy(intersects[0].point);
             this.dot.visible = true;
+           // intersects[0].object.ballType //this is how you get the ball type
+           //give balltype to gameAI
+           //console.log(intersects[0].object.ballType, this.game.gameState.turn, this.game.gameState.sides.player2);
+
+            if (this.game.gameState.state === 'turn' && this.game.gameState.turn === 'player2') {
+            if(intersects[0].object.ballType === this.game.gameState.ai.targetType)   {
+            
+                this.game.gameState.ai.state = 'hit';
+            }
+            if(this.game.gameState.sides.player2 === '?' || intersects[0].object.ballType === 'black') {
+                this.game.gameState.ai.state = 'hit';
+            }
+        }
+
         }else{
             intersects = this.raycaster.intersectObject( this.game.edges );
 

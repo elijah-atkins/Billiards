@@ -1,4 +1,5 @@
 import { GameUI } from './GameUI.js';
+import { GameAI } from './GameAI.js';
 import { Vector2, Raycaster } from '../../libs/three137/three.module.js';
 
 class GameState{
@@ -6,13 +7,31 @@ class GameState{
     {
       this.game = game;
       this.ui = new GameUI();
+      this.ai = new GameAI(this.game);
+      this.balls = [];
+      this.aiOn = false;
       this.initGame();
       this.charging = false;
       const btn = document.getElementById('playBtn');
+      const aiBtn = document.getElementById('aiBtn');
+      aiBtn.addEventListener('click', (evt) => {
+        this.aiOn = !this.aiOn;
+        aiBtn.innerHTML = this.aiOn ? true : false;
+        //if ai is off 
+        if(!this.aiOn){
+          this.ai.stopAutoRotate();
+        }else
+        {
+          if(this.turn == 'player2'){
+          this.ai.autoRotate();
+          }
+        }
+      });
       btn.onclick = this.startGame.bind(this);
       document.addEventListener( 'keydown', this.keydown.bind(this));
       document.addEventListener( 'keyup', this.keyup.bind(this)); 
       document.addEventListener( 'click', this.onClick.bind(this));
+
     }
   
     showPlayBtn(){
@@ -30,6 +49,7 @@ class GameState{
 
     keydown( evt ){
       if (this.state !== 'turn') return;
+      if (this.aiOn && this.turn == 'player2') return;
       //if mouse is down, show strength bar
   
 
@@ -40,7 +60,7 @@ class GameState{
 
     keyup( evt ){
       if (this.state !== 'turn') return;
-      
+      if (this.aiOn && this.turn == 'player2') return;
       if (evt.keyCode == 32){
           this.ui.strengthBar.visible = false;
           this.hit(this.ui.strengthBar.strength);
@@ -72,6 +92,36 @@ class GameState{
 
     }
 
+    playerTargetBallSet(player){
+      //if this.turn is '?' return numberedBallsOnTable
+      if(this.sides[this.turn] == '?'){
+        return this.numberedBallsOnTable;
+      }
+        
+      //parse numberdBallsOnTable to get a list of balls
+      const balls = [];
+      //figure out which side the player is on
+      if (this.sides[this.turn] == 'solid') {
+        for (let i = 1; i < 8; i++) {
+          if (this.numberedBallsOnTable.includes(i)) {
+            balls.push(i);
+          }
+        }
+      } else {
+        for (let i = 9; i < 16; i++) {
+          if (this.numberedBallsOnTable.includes(i)) {
+            balls.push(i);
+          }
+        }
+      }
+      //if there are no balls left, the player wins
+      if (balls.length == 0) {
+        //add 8 ball to the list
+        balls.push(8);
+      }
+      return balls;
+    }
+
     initGame(){
       this.numberedBallsOnTable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
       
@@ -96,27 +146,41 @@ class GameState{
       this.tickTimer();
       this.state = 'turn';
    
-      this.ui.updateTurn(this.turn == 'player1' ? 'player2' : 'player1'); //TODO fix this hack, changed the function of the UI to hide instead of highlight to better indicate player turn
+      this.ui.updateTurn(this.turn);
+      //if it's player 1's turn
+      if (this.turn == 'player1') {
+        this.ai.stopAutoRotate();
+
+      }
       this.ui.updateBalls(this.numberedBallsOnTable, this.sides);
       const str = this.turn == 'player1' ? 'Player 1' : 'Player 2';
       this.ui.log(`${str} to play`);
+
+      if (this.turn == 'player2') {
+        this.ai.state = 'aim';
+      }
     }
   
     whiteBallEnteredHole() {
       this.ui.log(`Cue ball pocketed by ${this.turn}!`);
     }
+
   
     coloredBallEnteredHole(id) {
       if (id === undefined) return;
-      
+      this.balls = this.playerTargetBallSet(this.turn);
+
       this.numberedBallsOnTable = this.numberedBallsOnTable.filter( num => {
-          return num != id;
+        
+          return num != id; //remove ball from numberedBallsOnTable
+          
       });
 
       if (id == 0)  return;
   
       if (id == 8) {
-        if (this.numberedBallsOnTable.length > 1) {
+        
+        if (this.balls.length > 1) {
             this.ui.log(`Game over! 8 ball pocketed too early by ${this.turn}`);
             this.turn = this.turn == 'player1' ? 'player2': 'player1';
         }
@@ -195,6 +259,10 @@ class GameState{
   update(dt){
     if (this.state == 'turnwaiting') this.checkSleeping();
     this.ui.update();
+
+    if(this.aiOn){
+      this.ai.update(dt);
+    }
   }
 }
 

@@ -263,7 +263,7 @@ class Game {
         this.controls.target.copy(this.cueball.mesh.position);
         this.controls.update();
         if (this.helper) this.helper.update();
-        this.gameState.update();
+        this.gameState.update(this.clock.getDelta());
         this.world.step(this.world.fixedTimeStep);
         this.balls.forEach(ball => ball.update());
         this.renderer.render(this.scene, this.camera);

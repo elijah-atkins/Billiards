@@ -41,10 +41,12 @@ class GameUI{
     document.getElementsByClassName('gamelog')[0].appendChild(node);
   }
 
+  
+
   updateTurn(str) {
     this.removeClass(document.getElementsByClassName('player1')[0], 'active');
     this.removeClass(document.getElementsByClassName('player2')[0], 'active');
-    this.addClass(document.getElementsByClassName(str)[0], 'active');
+    this.addClass(document.getElementsByClassName(str == 'player1' ? 'player2' : 'player1')[0], 'active');
   }
 
   updateBalls(ballArr, sides) {

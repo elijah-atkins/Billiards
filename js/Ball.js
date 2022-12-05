@@ -90,6 +90,17 @@ class Ball{
         }
   
         const mesh = new THREE.Mesh(geometry, material);
+
+        //add ball type of cue, solid, stripe and black
+        if (this.id == 0) {
+          mesh.ballType = 'cue';
+        } else if (this.id < 8) {
+          mesh.ballType = 'solid';
+        } else if (this.id == 8) {
+          mesh.ballType = 'black';
+        } else {
+          mesh.ballType = 'striped';
+        }
     
         mesh.castShadow = true;
         mesh.receiveShadow = true;

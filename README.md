@@ -24,7 +24,7 @@
 
 ## Stretch Goals
 - [ ] Add online multiplayer
-- [ ] Add AI
+- [x] Add AI
 - [ ] Add 9-ball pool
 - [ ] VR support
 
