@@ -1,5 +1,5 @@
 ## Billiards 8-Ball 
-8 Ball game made with THREE.js with cannon-es physics engine. 
+8 Ball game made with THREE.js with cannon.js physics engine. 
 
 ## Play Now
 - https://billiards.vercel.app/
